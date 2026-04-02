@@ -1,28 +1,39 @@
+// ==========================================
+// THE HANGERS - PREMIUM E-COMMERCE ENGINE
+// ==========================================
+
 // --- 1. CORE SYSTEM & MEMORY ---
 let bag = JSON.parse(localStorage.getItem('the_hangers_premium_bag')) || [];
 
 // --- 2. UNIVERSAL UI UPDATER ---
 function updateSystemUI() {
+    // Update the notification bubbles
     const countBubbles = document.querySelectorAll('.cart-count-display');
-    countBubbles.forEach(bubble => { bubble.textContent = bag.length; });
+    countBubbles.forEach(bubble => { 
+        bubble.textContent = bag.length; 
+        bubble.style.transform = "scale(1.2)"; // Tiny pop animation
+        setTimeout(() => bubble.style.transform = "scale(1)", 200);
+    });
 
+    // Update the Cart List
     const cartList = document.getElementById('cart-items');
     if(cartList) {
         cartList.innerHTML = '';
         if(bag.length === 0) {
-            cartList.innerHTML = '<p style="text-align:center; color:#888; margin-top:50px; font-size: 13px; font-weight: 500;">Your bag is empty.</p>';
+            cartList.innerHTML = '<p style="text-align:center; color:#888; margin-top:50px; font-size: 13px; font-weight: 600;">Your bag is delightfully empty.</p>';
         } else {
             bag.forEach((item, index) => {
                 const li = document.createElement('li');
                 li.className = 'cart-item';
+                li.style.animation = "fadeIn 0.3s ease"; // Smooth entry
                 li.innerHTML = `
-                    <div>
-                        <p style="font-weight:800; font-size:13px; margin-bottom:3px; text-transform: uppercase;">${item.name}</p>
-                        <small style="color:#666; font-weight: 500;">${item.color} | Size: ${item.size}</small>
+                    <div style="flex-grow: 1;">
+                        <p style="font-weight:900; font-size:12px; margin-bottom:3px; text-transform: uppercase;">${item.name}</p>
+                        <small style="color:#666; font-weight: 600; font-size: 11px;">Color: ${item.color} | Size: ${item.size}</small>
                     </div>
-                    <div style="text-align:right;">
-                        <p style="font-size:14px; font-weight:800; margin-bottom:5px;">₹${item.price.toLocaleString('en-IN')}</p>
-                        <button onclick="removeFromBag(${index})" style="color:#ff4f4f; background:none; border:none; cursor:pointer; font-size:10px; font-weight:800; text-transform: uppercase;">Remove</button>
+                    <div style="text-align:right; display: flex; flex-direction: column; align-items: flex-end;">
+                        <p style="font-size:14px; font-weight:900; margin-bottom:5px;">₹${item.price.toLocaleString('en-IN')}</p>
+                        <button onclick="removeFromBag(${index})" style="color:#ff4f4f; background:none; border:none; cursor:pointer; font-size:10px; font-weight:800; text-transform: uppercase; padding: 4px;">Remove</button>
                     </div>
                 `;
                 cartList.appendChild(li);
@@ -30,47 +41,104 @@ function updateSystemUI() {
         }
     }
 
+    // Update Total Price
     const totalDisplay = document.getElementById('cart-total');
     if(totalDisplay) {
         const total = bag.reduce((sum, item) => sum + item.price, 0);
         totalDisplay.textContent = total.toLocaleString('en-IN');
     }
 
+    // Update Hidden Form Field for Emails
     const emailHiddenField = document.getElementById('form-details');
     if(emailHiddenField) {
         emailHiddenField.value = bag.map(i => `${i.name} (${i.color}/${i.size}) - ₹${i.price}`).join(' || ');
     }
 }
 
-// --- 3. ADD / REMOVE FUNCTIONS ---
+// --- 3. GLOBAL INTERACTIVE EVENTS (Colors, Sizes, Sidebar Clicks) ---
+document.addEventListener('click', function(e) {
+    
+    // 1. Smooth Image Swap on Color Click
+    if(e.target.classList.contains('color-dot')) {
+        const dot = e.target;
+        const card = dot.closest('.glass-card');
+        
+        card.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+        dot.classList.add('active');
+        
+        const newImageSrc = dot.getAttribute('data-img');
+        const mainImg = card.querySelector('.main-img');
+        if(mainImg && newImageSrc) {
+            mainImg.style.opacity = 0; // Fade out
+            setTimeout(() => {
+                mainImg.src = newImageSrc; 
+                mainImg.style.opacity = 1; // Fade in
+            }, 200);
+        }
+    }
+
+    // 2. Select Size
+    if(e.target.classList.contains('size-btn')) {
+        const btn = e.target;
+        const group = btn.closest('.sizes-group');
+        group.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    // 3. Smart UX: Click outside sidebar to close it
+    if(e.target.id === 'left-sidebar' && e.clientX > 350) { toggleSidebar(); }
+    if(e.target.id === 'cart-sidebar' && e.clientX < window.innerWidth - 350) { toggleCart(); }
+});
+
+// --- 4. QUANTITY & CART FUNCTIONS ---
+function changeQty(btnElement, amount) {
+    const qtyDisplay = btnElement.parentElement.querySelector('.qty-display');
+    let currentQty = parseInt(qtyDisplay.textContent);
+    let newQty = currentQty + amount;
+    if (newQty >= 1 && newQty <= 10) { 
+        qtyDisplay.textContent = newQty;
+    }
+}
+
 function addToBag(btnElement) {
     const card = btnElement.closest('.glass-card');
     if(!card) return;
 
+    // Extract Info
     const name = card.querySelector('.product-title').textContent;
     const priceRaw = card.querySelector('.product-price').textContent;
-    const price = parseInt(priceRaw.replace(/[^\d]/g, '')); 
+    const basePrice = parseInt(priceRaw.replace(/[^\d]/g, '')); 
     
     const activeColor = card.querySelector('.color-dot.active');
     const activeSize = card.querySelector('.size-btn.active');
+    const qtyElement = card.querySelector('.qty-display');
     
-    const color = activeColor ? activeColor.getAttribute('data-color-name') : 'Standard';
+    const color = activeColor ? activeColor.getAttribute('data-color-name') || 'Standard' : 'Standard';
     const size = activeSize ? activeSize.textContent : 'M';
+    const quantity = qtyElement ? parseInt(qtyElement.textContent) : 1;
 
-    bag.push({ name, price, color, size, id: Date.now() });
+    // Calculate final price based on quantity
+    const finalPrice = basePrice * quantity;
+    const finalName = quantity > 1 ? `${name} (x${quantity})` : name;
+
+    // Add to system memory
+    bag.push({ name: finalName, price: finalPrice, color, size, id: Date.now() });
     localStorage.setItem('the_hangers_premium_bag', JSON.stringify(bag));
     updateSystemUI();
 
+    // Premium Button Feedback
     const originalText = btnElement.textContent;
     btnElement.textContent = "✓ SECURED";
-    btnElement.style.background = "#fff";
-    btnElement.style.color = "#000";
+    btnElement.style.background = "#000";
+    btnElement.style.color = "#fff";
+    btnElement.style.transform = "scale(0.95)";
     
     setTimeout(() => { 
         btnElement.textContent = originalText; 
         btnElement.style.background = ""; 
         btnElement.style.color = "";
-    }, 2000);
+        btnElement.style.transform = "scale(1)";
+    }, 1500);
 }
 
 function removeFromBag(index) {
@@ -79,19 +147,24 @@ function removeFromBag(index) {
     updateSystemUI();
 }
 
-// --- 4. SIDEBAR & MODAL CONTROLS ---
+// --- 5. UI CONTROLS (Sidebars & Modals) ---
 function toggleSidebar() { document.getElementById('left-sidebar').classList.toggle('open'); }
 function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
 
 function openCheckout() { 
-    if(bag.length === 0) { alert("Your bag is empty."); return; }
+    if(bag.length === 0) { alert("Your bag is currently empty."); return; }
     const modal = document.getElementById('checkout-modal');
-    if(modal) { modal.style.display = 'flex'; toggleCart(); }
+    if(modal) { 
+        modal.style.display = 'flex'; 
+        modal.style.opacity = '0';
+        setTimeout(() => modal.style.opacity = '1', 10); // Smooth fade in
+        toggleCart(); 
+    }
 }
 function closeCheckout() { document.getElementById('checkout-modal').style.display = 'none'; }
 
 
-// --- 5. INITIALIZATION & CHECKOUT LOGIC ---
+// --- 6. INITIALIZATION & CHECKOUT LOGIC ---
 window.onload = updateSystemUI;
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -110,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Checkout / UPI Logic
+    // Secure Checkout / UPI Logic
     const checkoutForm = document.getElementById('checkout-form');
     const submitBtn = document.getElementById('submit-btn');
     const successMessage = document.getElementById('form-success-message');
@@ -126,7 +199,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
             if (isMobile) {
-                submitBtn.innerHTML = "OPENING GOOGLE PAY...";
+                submitBtn.innerHTML = "OPENING SECURE PAYMENT...";
+                submitBtn.style.opacity = "0.7";
                 window.location.href = upiUrl;
 
                 const data = new FormData(checkoutForm);
@@ -144,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }, 6000);
                 } catch (error) { console.log("Silent form error:", error); }
             } else {
-                alert(`Please use a mobile phone for Google Pay. On Desktop, please pay ₹${totalAmount} to UPI: ${upiId}`);
+                alert(`Please use a mobile phone for seamless payment. On Desktop, kindly pay ₹${totalAmount} to UPI: ${upiId}`);
             }
         });
     }
@@ -152,6 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function closeWelcome() {
     const overlay = document.getElementById('welcome-overlay');
+    if(!overlay) return;
     overlay.style.opacity = '0';
     setTimeout(() => {
         overlay.style.display = 'none';
@@ -161,7 +236,7 @@ function closeWelcome() {
     sessionStorage.setItem('seen_welcome', 'true'); 
 }
 
-// --- 6. OTP LOGIN & MY PROFILE SYSTEM ---
+// --- 7. OTP LOGIN & MY PROFILE SYSTEM ---
 function openLoginModal() { document.getElementById('login-modal').style.display = 'flex'; }
 function closeLoginModal() { document.getElementById('login-modal').style.display = 'none'; resetLogin(); }
 
