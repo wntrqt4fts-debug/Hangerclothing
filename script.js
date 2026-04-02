@@ -235,4 +235,49 @@ function updateLoginUI() {
         loginBtn.onclick = openLoginModal;
     }
 }
+// --- NEW QUANTITY LOGIC ---
+function changeQty(btnElement, amount) {
+    const qtyDisplay = btnElement.parentElement.querySelector('.qty-display');
+    let currentQty = parseInt(qtyDisplay.textContent);
+    let newQty = currentQty + amount;
+    if (newQty >= 1 && newQty <= 10) { // Keeps quantity between 1 and 10
+        qtyDisplay.textContent = newQty;
+    }
+}
+
+// --- UPDATED ADD TO BAG (Now handles Quantity) ---
+function addToBag(btnElement) {
+    const card = btnElement.closest('.glass-card');
+    if(!card) return;
+
+    const name = card.querySelector('.product-title').textContent;
+    const priceRaw = card.querySelector('.product-price').textContent;
+    const price = parseInt(priceRaw.replace(/[^\d]/g, '')); 
+    
+    const activeColor = card.querySelector('.color-dot.active');
+    const activeSize = card.querySelector('.size-btn.active');
+    const qtyElement = card.querySelector('.qty-display'); // Get the quantity
+    
+    const color = activeColor ? activeColor.getAttribute('data-color-name') : 'Standard';
+    const size = activeSize ? activeSize.textContent : 'M';
+    const quantity = qtyElement ? parseInt(qtyElement.textContent) : 1;
+
+    // Multiply price by quantity for the bag
+    const finalPrice = price * quantity;
+
+    bag.push({ name: `${name} (x${quantity})`, price: finalPrice, color, size, id: Date.now() });
+    localStorage.setItem('the_hangers_premium_bag', JSON.stringify(bag));
+    updateSystemUI();
+
+    const originalText = btnElement.textContent;
+    btnElement.textContent = "✓ SECURED";
+    btnElement.style.background = "#fff";
+    btnElement.style.color = "#000";
+    
+    setTimeout(() => { 
+        btnElement.textContent = originalText; 
+        btnElement.style.background = ""; 
+        btnElement.style.color = "";
+    }, 2000);
+}
 
