@@ -42,7 +42,50 @@ function updateSystemUI() {
     }
 }
 
-// --- 3. ADD / REMOVE FUNCTIONS ---
+// --- 3. UI INTERACTIONS (COLORS, SIZES, QTY) ---
+
+// Automatically swap images and select sizes when clicked
+document.addEventListener('click', function(e) {
+    // Color Dot Click
+    if(e.target.classList.contains('color-dot')) {
+        const dot = e.target;
+        const card = dot.closest('.glass-card');
+        
+        // Remove active class from all dots in this card, add to clicked one
+        card.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+        dot.classList.add('active');
+        
+        // Swap Image smoothly
+        const newImageSrc = dot.getAttribute('data-img');
+        const mainImg = card.querySelector('.main-img');
+        if(mainImg && newImageSrc) {
+            mainImg.style.opacity = 0; // Fade out
+            setTimeout(() => {
+                mainImg.src = newImageSrc; // Change source
+                mainImg.style.opacity = 1; // Fade in
+            }, 150);
+        }
+    }
+
+    // Size Button Click
+    if(e.target.classList.contains('size-btn')) {
+        const btn = e.target;
+        const group = btn.closest('.sizes-group');
+        group.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+});
+
+function changeQty(btnElement, amount) {
+    const qtyDisplay = btnElement.parentElement.querySelector('.qty-display');
+    let currentQty = parseInt(qtyDisplay.textContent);
+    let newQty = currentQty + amount;
+    if (newQty >= 1 && newQty <= 10) { 
+        qtyDisplay.textContent = newQty;
+    }
+}
+
+// --- 4. ADD / REMOVE FUNCTIONS ---
 function addToBag(btnElement) {
     const card = btnElement.closest('.glass-card');
     if(!card) return;
@@ -53,11 +96,15 @@ function addToBag(btnElement) {
     
     const activeColor = card.querySelector('.color-dot.active');
     const activeSize = card.querySelector('.size-btn.active');
+    const qtyElement = card.querySelector('.qty-display'); 
     
     const color = activeColor ? activeColor.getAttribute('data-color-name') : 'Standard';
     const size = activeSize ? activeSize.textContent : 'M';
+    const quantity = qtyElement ? parseInt(qtyElement.textContent) : 1;
 
-    bag.push({ name, price, color, size, id: Date.now() });
+    const finalPrice = price * quantity;
+
+    bag.push({ name: `${name} (x${quantity})`, price: finalPrice, color, size, id: Date.now() });
     localStorage.setItem('the_hangers_premium_bag', JSON.stringify(bag));
     updateSystemUI();
 
@@ -79,7 +126,7 @@ function removeFromBag(index) {
     updateSystemUI();
 }
 
-// --- 4. SIDEBAR & MODAL CONTROLS ---
+// --- 5. SIDEBAR & MODAL CONTROLS ---
 function toggleSidebar() { document.getElementById('left-sidebar').classList.toggle('open'); }
 function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
 
@@ -91,7 +138,7 @@ function openCheckout() {
 function closeCheckout() { document.getElementById('checkout-modal').style.display = 'none'; }
 
 
-// --- 5. INITIALIZATION & CHECKOUT LOGIC ---
+// --- 6. INITIALIZATION & CHECKOUT LOGIC ---
 window.onload = updateSystemUI;
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -119,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
         checkoutForm.addEventListener('submit', async function(event) {
             event.preventDefault(); 
             const totalAmount = bag.reduce((sum, item) => sum + item.price, 0);
-            const upiId = "YOURNAME@okaxis"; // MAKE SURE TO CHANGE THIS
+            const upiId = "YOURNAME@okaxis"; 
             const merchantName = "The Hangers";
 
             const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(merchantName)}&am=${totalAmount}&cu=INR`;
@@ -152,6 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function closeWelcome() {
     const overlay = document.getElementById('welcome-overlay');
+    if(!overlay) return;
     overlay.style.opacity = '0';
     setTimeout(() => {
         overlay.style.display = 'none';
@@ -161,7 +209,7 @@ function closeWelcome() {
     sessionStorage.setItem('seen_welcome', 'true'); 
 }
 
-// --- 6. OTP LOGIN & MY PROFILE SYSTEM ---
+// --- 7. OTP LOGIN & MY PROFILE SYSTEM ---
 function openLoginModal() { document.getElementById('login-modal').style.display = 'flex'; }
 function closeLoginModal() { document.getElementById('login-modal').style.display = 'none'; resetLogin(); }
 
@@ -235,49 +283,3 @@ function updateLoginUI() {
         loginBtn.onclick = openLoginModal;
     }
 }
-// --- NEW QUANTITY LOGIC ---
-function changeQty(btnElement, amount) {
-    const qtyDisplay = btnElement.parentElement.querySelector('.qty-display');
-    let currentQty = parseInt(qtyDisplay.textContent);
-    let newQty = currentQty + amount;
-    if (newQty >= 1 && newQty <= 10) { // Keeps quantity between 1 and 10
-        qtyDisplay.textContent = newQty;
-    }
-}
-
-// --- UPDATED ADD TO BAG (Now handles Quantity) ---
-function addToBag(btnElement) {
-    const card = btnElement.closest('.glass-card');
-    if(!card) return;
-
-    const name = card.querySelector('.product-title').textContent;
-    const priceRaw = card.querySelector('.product-price').textContent;
-    const price = parseInt(priceRaw.replace(/[^\d]/g, '')); 
-    
-    const activeColor = card.querySelector('.color-dot.active');
-    const activeSize = card.querySelector('.size-btn.active');
-    const qtyElement = card.querySelector('.qty-display'); // Get the quantity
-    
-    const color = activeColor ? activeColor.getAttribute('data-color-name') : 'Standard';
-    const size = activeSize ? activeSize.textContent : 'M';
-    const quantity = qtyElement ? parseInt(qtyElement.textContent) : 1;
-
-    // Multiply price by quantity for the bag
-    const finalPrice = price * quantity;
-
-    bag.push({ name: `${name} (x${quantity})`, price: finalPrice, color, size, id: Date.now() });
-    localStorage.setItem('the_hangers_premium_bag', JSON.stringify(bag));
-    updateSystemUI();
-
-    const originalText = btnElement.textContent;
-    btnElement.textContent = "✓ SECURED";
-    btnElement.style.background = "#fff";
-    btnElement.style.color = "#000";
-    
-    setTimeout(() => { 
-        btnElement.textContent = originalText; 
-        btnElement.style.background = ""; 
-        btnElement.style.color = "";
-    }, 2000);
-}
-
