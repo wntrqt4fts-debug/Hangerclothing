@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE HANGERS | Elevating Our Aesthetic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream-bg: #B6B2A5;
+            --text-main: #000000;
+            --text-muted: #444444;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(0, 0, 0, 0.08);
+            --glass-blur: blur(20px);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { 
+            background-color: var(--cream-bg); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            width: 100vw; 
+            overflow: hidden; 
+            padding: 20px;
+            animation: fadeInBody 1.5s ease;
+        }
+
+        /* PREMIUM FADE-IN ANIMATION */
+        @keyframes fadeInBody { 0% { opacity: 0; } 100% { opacity: 1; } }
+        @keyframes fadeInPanel { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        .glass-panel {
+            background-color: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 60px 40px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            animation: fadeInPanel 1s ease 0.5s both; /* Delayed entry */
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+
+        h2 {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #000;
+            border-radius: 50%;
+            display: inline-block;
+            margin-bottom: 20px;
+            animation: pulseDot 2s infinite;
+        }
+
+        @keyframes pulseDot { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
+
+        p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+
+        .follow-link {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 700;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 3px;
+            transition: border-bottom 0.3s ease;
+        }
+
+        .follow-link:hover {
+            border-bottom: 1px solid rgba(0,0,0,0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="coming-soon-container">
+        <div class="glass-panel">
+            <h1>THE HANGERS</h1>
+            <h2>ELEVATING OUR AESTHETIC</h2>
+            
+            <div class="status-dot"></div>
+            
+            <p>Our online store is currently undergoing a curated transformation. We are refining our collections and user experience to serve you better. We will be right back.</p>
+            
+            <a href="https://www.instagram.com/thehangers.co" class="follow-link" target="_blank">FOLLOW OUR JOURNEY</a>
+        </div>
+    </div>
+</body>
+</html>
