@@ -222,7 +222,7 @@ function logoutUser() {
         closeAccountModal();
         updateLoginUI();
     }
-}
+} 
 
 function updateLoginUI() {
     const isLoggedIn = localStorage.getItem('hangers_user_logged_in');
