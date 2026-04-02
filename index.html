@@ -1,1 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Hangers | Premium Apparels</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="welcome-overlay" class="welcome-overlay">
+    <div class="welcome-content">
+        <button onclick="closeWelcome()" class="skip-btn">SKIP</button>
+        <video id="intro-video" src="Welcome.mp4" autoplay muted playsinline></video>
+    </div>
+</div>
+
+<nav class="glass-panel">
+    <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+    <img src="IMG_4814.png" alt="The Hangers" class="main-logo">
+    <div style="display: flex; gap: 15px; align-items: center;">
+        <button onclick="openLoginModal()" id="user-login-btn" class="nav-login-btn">LOGIN</button>
+        <button class="cart-toggle" onclick="toggleCart()">BAG (<span class="cart-count-display">0</span>)</button>
+    </div>
+</nav>
+
+<header class="page-header">
+    <h1>THE HANGERS</h1>
+    <p>ELEVATE YOUR AESTHETIC</p>
+</header>
+
+<div class="sale-banner">
+    <div class="marquee">
+        <span>• GAGANAULAKH • THE HANGERS & HAPPY SHOPPING • UP TO 50% OFF • NEW ARRIVALS: LIMITED DEALS • SHOP NOW • END OF SEASON SALE • EID MUBARAK & HAPPY SHOPPING • UP TO 50% OFF • NEW ARRIVALS: LIMITED DEALS • SHOP NOW • END OF SEASON SALE •</span>
+    </div>
+</div>
+
+<div class="brands-section">
+    <h3 class="section-subtitle">Featured Brands</h3>
+    <div class="brands-container">
+        <a href="https://www.zara.com" target="_blank" class="brand-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Zara_Logo.svg" alt="Zara"></a>
+        <a href="https://www.hm.com" target="_blank" class="brand-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/H%26M-Logo.svg" alt="H&M"></a>
+        <a href="https://www.levi.in" target="_blank" class="brand-circle"><img src="IMG_4875.png" alt="Levi's"></a>
+        <a href="https://www.gap.com" target="_blank" class="brand-circle"><img src="IMG_4877.jpeg" alt="Gap"></a>
+        <a href="https://www.ralphlauren.com" target="_blank" class="brand-circle"><img src="IMG_4879.jpeg" alt="Ralph Lauren"></a>
+    </div>
+</div>
+
+<div class="promo-section">
+    <div class="promo-slider">
+        <div class="promo-banner glass-panel">
+            <img src="promo-image.jpg" alt="Sale Image">
+        </div>
+        <div class="promo-banner glass-panel">
+            <video src="promo-video.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="promo-banner glass-panel">
+            <img src="promo-animation.gif" alt="Sale GIF">
+        </div>
+    </div>
+</div>
+<section class="category-section">
+    <div class="section-header">
+        <h2>SHOP BY CATEGORY</h2>
+        <p>Swipe to explore collections →</p>
+    </div>
+    
+    <div class="horizontal-slider">
+        <div class="glass-card glass-panel" onclick="window.location.href='shirts.html'">
+            <div class="card-img-wrapper"><img src="IMG_4833.jpeg" alt="Shirts"></div>
+            <div class="card-info"><h3 class="product-title">Premium Shirts</h3><p>10 Exclusive Pieces</p><button class="btn-primary">EXPLORE</button></div>
+        </div>
+        <div class="glass-card glass-panel" onclick="window.location.href='tshirts.html'">
+            <div class="card-img-wrapper"><img src="IMG_4846.png" alt="T-Shirts"></div>
+            <div class="card-info"><h3 class="product-title">Urban T-Shirts</h3><p>10 Exclusive Pieces</p><button class="btn-primary">EXPLORE</button></div>
+        </div>
+        <div class="glass-card glass-panel" onclick="window.location.href='jeans.html'">
+            <div class="card-img-wrapper"><img src="category-jeans.jpg" alt="Jeans"></div>
+            <div class="card-info"><h3 class="product-title">Denim Jeans</h3><p>10 Exclusive Pieces</p><button class="btn-primary">EXPLORE</button></div>
+        </div>
+        <div class="glass-card glass-panel" onclick="window.location.href='watches.html'">
+            <div class="card-img-wrapper"><img src="category-watches.jpg" alt="Watches"></div>
+            <div class="card-info"><h3 class="product-title">Elite Watches</h3><p>10 Exclusive Pieces</p><button class="btn-primary">EXPLORE</button></div>
+        </div>
+        <div class="glass-card glass-panel" onclick="window.location.href='hats.html'">
+            <div class="card-img-wrapper"><img src="category-hats.jpg" alt="Hats"></div>
+            <div class="card-info"><h3 class="product-title">Hats & Caps</h3><p>10 Exclusive Pieces</p><button class="btn-primary">EXPLORE</button></div>
+        </div>
+    </div>
+</section>
+<section class="about-section">
+    <h2 class="section-subtitle" style="font-size: 20px; text-align: center;">OUR STORY</h2>
+    <div class="about-grid">
+        <div class="about-media glass-panel"><img src="your-image.jpg" alt="Brand Image"></div>
+        <div class="about-media glass-panel"><img src="your-animation.gif" alt="Brand GIF"></div>
+        <div class="about-media glass-panel"><video src="your-video.mp4" autoplay loop muted playsinline></video></div>
+    </div>
+    <p class="about-text">
+        Welcome to The Hangers. We bring you premium aesthetics with uncompromising quality. Explore our exclusive pieces curated for the modern wardrobe. Elevate your everyday look.
+    </p>
+</section>
+
+<div id="left-sidebar" class="sidebar glass-panel">
+    <div class="sidebar-header"><h2>MENU</h2><button class="close-btn" onclick="toggleSidebar()">×</button></div>
+    <ul class="sidebar-links">
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="shirts.html">SHIRTS</a></li>
+        <li><a href="jeans.html">JEANS</a></li>
+    </ul>
+</div>
+
+<div id="cart-sidebar" class="sidebar glass-panel">
+    <div class="sidebar-header"><h2>YOUR BAG</h2><button class="close-btn" onclick="toggleCart()">×</button></div>
+    <ul id="cart-items"></ul>
+    <div class="cart-footer">
+        <h3 class="cart-total-display">TOTAL: <span>₹<span id="cart-total">0</span></span></h3>
+        <div class="delivery-badge">
+            <img src="Speed Delivery.gif" alt="Fast Delivery">
+            <p>Express Delivery</p>
+        </div>
+        <button class="checkout-btn" onclick="openCheckout()">PROCEED TO PAYMENT<img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" class="pay-logo"><span style="color:#ddd; font-weight:normal;">|</span><img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg" class="pay-logo"></button>
+    </div>
+</div>
+
+<div id="checkout-modal" class="modal">
+    <div class="modal-content glass-panel">
+        <button class="modal-close" onclick="closeCheckout()">×</button>
+        <h2 class="modal-title">SECURE CHECKOUT</h2>
+        <form id="checkout-form" action="https://formspree.io/f/mvzvqaop" method="POST">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="tel" name="phone" placeholder="Mobile Number" required>
+            <textarea name="address" placeholder="Full Delivery Address" rows="3" required></textarea>
+            <input type="hidden" name="order_details" id="form-details">
+            <button type="submit" id="submit-btn" class="checkout-btn" style="margin-top:10px;">CONFIRM & PAY</button>
+        </form>
+        <div id="form-success-message" class="success-message">Order details sent! <br><span>Please check your UPI app.</span></div>
+    </div>
+</div>
+
+<div id="login-modal" class="modal">
+    <div class="modal-content glass-panel">
+        <button class="modal-close" onclick="closeLoginModal()">×</button>
+        <h2 class="modal-title">WELCOME BACK</h2>
+        <p class="modal-subtitle">Sign in to track your orders and checkout faster.</p>
+        <div id="phone-step">
+            <div class="input-group">
+                <span>+91</span>
+                <input type="tel" id="mobile-number" placeholder="Enter Mobile Number" maxlength="10">
+            </div>
+            <button class="checkout-btn" onclick="sendOTP()">SEND OTP</button>
+        </div>
+        <div id="otp-step" style="display: none;">
+            <p class="modal-subtitle">OTP sent to <span id="display-number" style="font-weight: bold;"></span></p>
+            <input type="text" id="otp-input" class="otp-box" placeholder="Enter 4-digit OTP" maxlength="4">
+            <button class="checkout-btn" onclick="verifyOTP()">VERIFY & LOGIN</button>
+            <button class="text-btn" onclick="resetLogin()">Change Number</button>
+        </div>
+    </div>
+</div>
+
+<div id="account-modal" class="modal">
+    <div class="modal-content glass-panel">
+        <button class="modal-close" onclick="closeAccountModal()">×</button>
+        <h2 class="modal-title">MY PROFILE</h2>
+        <p class="modal-subtitle">Save your details for a faster checkout.</p>
+        <div class="profile-form">
+            <input type="text" id="profile-name" placeholder="Full Name">
+            <input type="email" id="profile-email" placeholder="Email Address">
+            <input type="tel" id="profile-phone" placeholder="Phone Number" readonly class="locked-input">
+            <input type="text" id="profile-address" placeholder="Street Address / Area">
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="profile-city" placeholder="City" style="width: 50%;">
+                <input type="text" id="profile-country" placeholder="Country" value="India" style="width: 50%;">
+            </div>
+        </div>
+        <button class="checkout-btn" onclick="saveUserProfile()" style="margin-top:20px;">SAVE DETAILS</button>
+        <button class="danger-btn" onclick="logoutUser()">LOGOUT</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
 
