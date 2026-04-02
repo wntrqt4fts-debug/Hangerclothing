@@ -1,1 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium T-Shirts | The Hangers</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- SPECIAL CSS FOR COMPACT 2-COLUMN GRID --- */
+        .grid-2-columns {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px; 
+            padding: 20px 5% 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        @media (min-width: 768px) {
+            .grid-2-columns { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        }
+
+        .grid-2-columns .glass-card { flex: none; border-radius: 10px; }
+        .grid-2-columns .card-info { padding: 10px; }
+        .grid-2-columns .product-title { font-size: 12px; margin-bottom: 2px; letter-spacing: 0px; font-weight: 800; text-transform: uppercase; color: #000; }
+        .grid-2-columns .product-price { font-size: 12px; margin-bottom: 8px; font-weight: 800; color: #000;}
+        
+        /* STRICT RULES FOR COLOR CIRCLES */
+        .grid-2-columns .colors-group { display: flex; flex-direction: row; justify-content: center; gap: 8px; margin-bottom: 10px; }
+        .grid-2-columns .color-dot { width: 20px; height: 20px; border-radius: 50% !important; border: 1px solid rgba(0,0,0,0.3); display: inline-block; cursor: pointer; transition: 0.3s; }
+        .grid-2-columns .color-dot.active { border: 2px solid #000; transform: scale(1.2); }
+        
+        /* Shrink Size Buttons */
+        .grid-2-columns .sizes-group { display: flex; flex-direction: row; justify-content: center; gap: 4px; margin-bottom: 10px; }
+        .grid-2-columns .size-btn { padding: 5px 10px; font-size: 11px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1); background: rgba(0,0,0,0.03); cursor: pointer; font-weight: bold;}
+        .grid-2-columns .size-btn.active { background: #000; color: #fff; }
+        
+        /* Shrink Quantity Buttons */
+        .grid-2-columns .qty-group { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 4px 6px; margin-bottom: 12px; border-radius: 6px; background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05); width: fit-content; margin-left: auto; margin-right: auto;}
+        .grid-2-columns .qty-btn { width: 22px; height: 22px; font-size: 14px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1); background: #fff; cursor: pointer; font-weight: bold;}
+        .grid-2-columns .qty-display { font-size: 12px; width: 16px; text-align: center; font-weight: bold;}
+        
+        /* Shrink Add to Bag Button */
+        .grid-2-columns .btn-primary { padding: 10px; font-size: 11px; border-radius: 6px; width: 100%; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1); cursor: pointer; font-weight: bold;}
+        .grid-2-columns .btn-primary:hover { background: #000; color: #fff; }
+    </style>
+</head>
+<body>
+
+<nav class="glass-panel">
+    <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+    <a href="index.html"><img src="welcome.png" alt="The Hangers" class="main-logo"></a>
+    <div style="display: flex; gap: 15px; align-items: center;">
+        <button onclick="openLoginModal()" id="user-login-btn" class="nav-login-btn">LOGIN</button>
+        <button class="cart-toggle" onclick="toggleCart()">BAG (<span class="cart-count-display">0</span>)</button>
+    </div>
+</nav>
+
+<header class="page-header" style="padding-top: 100px; padding-bottom: 20px;">
+    <h1 style="font-size: 2rem;">T-SHIRTS</h1>
+    <p style="font-size: 11px;">ESSENTIAL EVERYDAY WEAR</p>
+</header>
+
+<main class="grid-2-columns">
+    
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500" alt="T-Shirt" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">Basic Crew Neck</h3>
+            <p class="product-price">₹799</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #ffffff;" data-img="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500"></div>
+                    <div class="color-dot" style="background: #1a1a1a;" data-img="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn">S</button><button class="size-btn active">M</button><button class="size-btn">L</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500" alt="T-Shirt" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">Oversized Drop</h3>
+            <p class="product-price">₹999</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #A9A9A9;" data-img="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500"></div>
+                    <div class="color-dot" style="background: #800000;" data-img="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn">M</button><button class="size-btn active">L</button><button class="size-btn">XL</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?w=500" alt="T-Shirt" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">Vintage Wash</h3>
+            <p class="product-price">₹1,199</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #6B8E23;" data-img="https://images.unsplash.com/photo-1562157873-818bc0726f68?w=500"></div>
+                    <div class="color-dot" style="background: #4682B4;" data-img="https://images.unsplash.com/photo-1529391409740-59f2cea08bc6?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn active">M</button><button class="size-btn">L</button><button class="size-btn">XL</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500" alt="T-Shirt" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">Heavyweight Blank</h3>
+            <p class="product-price">₹1,099</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #f5f5f5;" data-img="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500"></div>
+                    <div class="color-dot" style="background: #111111;" data-img="https://images.unsplash.com/photo-1618517351616-389a5e12814c?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn">S</button><button class="size-btn active">M</button><button class="size-btn">L</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=500" alt="T-Shirt" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">Graphic Print</h3>
+            <p class="product-price">₹1,299</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #2b2b2b;" data-img="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn">M</button><button class="size-btn active">L</button><button class="size-btn">XL</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1564859228273-274232fdb516?w=500" alt="T-Shirt" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">Henley Ribbed</h3>
+            <p class="product-price">₹1,149</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #EEDDCC;" data-img="https://images.unsplash.com/photo-1564859228273-274232fdb516?w=500"></div>
+                    <div class="color-dot" style="background: #2f4f4f;" data-img="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn">S</button><button class="size-btn active">M</button><button class="size-btn">L</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?w=500" alt="T-Shirt" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">V-Neck Slim</h3>
+            <p class="product-price">₹899</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #808080;" data-img="https://images.unsplash.com/photo-1527719327859-c6ce80353573?w=500"></div>
+                    <div class="color-dot" style="background: #ffffff;" data-img="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn">M</button><button class="size-btn active">L</button><button class="size-btn">XL</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1622470953794-aa9c70b0fb9d?w=500" alt="T-Shirt" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">Boxy Fit Pocket</h3>
+            <p class="product-price">₹1,049</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #DAA520;" data-img="https://images.unsplash.com/photo-1622470953794-aa9c70b0fb9d?w=500"></div>
+                    <div class="color-dot" style="background: #111111;" data-img="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn active">S</button><button class="size-btn">M</button><button class="size-btn">L</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+</main>
+
+<div id="left-sidebar" class="sidebar glass-panel">
+    <div class="sidebar-header"><h2>MENU</h2><button class="close-btn" onclick="toggleSidebar()">×</button></div>
+    <ul class="sidebar-links">
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="shirts.html">SHIRTS</a></li>
+        <li><a href="tshirts.html">T-SHIRTS</a></li>
+        <li><a href="jeans.html">JEANS</a></li>
+    </ul>
+</div>
+
+<div id="cart-sidebar" class="sidebar glass-panel">
+    <div class="sidebar-header"><h2>YOUR BAG</h2><button class="close-btn" onclick="toggleCart()">×</button></div>
+    <ul id="cart-items"></ul>
+    <div class="cart-footer">
+        <h3 class="cart-total-display">TOTAL: <span>₹<span id="cart-total">0</span></span></h3>
+        <div class="delivery-badge">
+            <img src="Speed Delivery.gif" alt="Fast Delivery">
+            <p>Express Delivery</p>
+        </div>
+        <button class="checkout-btn" onclick="openCheckout()">PROCEED TO PAYMENT<img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" class="pay-logo"><span style="color:#ddd; font-weight:normal;">|</span><img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg" class="pay-logo"></button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+<script>
+document.addEventListener('click', function(e) {
+    // 1. Color Dot Click - Changes Image
+    if(e.target.classList.contains('color-dot')) {
+        const dot = e.target;
+        const card = dot.closest('.glass-card');
+        
+        card.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+        dot.classList.add('active');
+        
+        const newImageSrc = dot.getAttribute('data-img');
+        const mainImg = card.querySelector('.main-img');
+        if(mainImg && newImageSrc) {
+            mainImg.style.opacity = 0; 
+            setTimeout(() => {
+                mainImg.src = newImageSrc; 
+                mainImg.style.opacity = 1; 
+            }, 150);
+        }
+    }
+
+    // 2. Size Button Click
+    if(e.target.classList.contains('size-btn')) {
+        const btn = e.target;
+        const group = btn.closest('.sizes-group');
+        group.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+});
+</script>
+
+</body>
+</html>
 
