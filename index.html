@@ -12,7 +12,7 @@
     <div class="welcome-content">
         <button onclick="closeWelcome()" class="skip-btn">SKIP</button>
         <video id="intro-video" src="Welcome.mp4" autoplay muted playsinline></video>
-    </div> 
+    </div>
 </div>
 
 <nav class="glass-panel">
@@ -42,23 +42,24 @@
         <a href="https://www.hm.com" target="_blank" class="brand-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/H%26M-Logo.svg" alt="H&M"></a>
         <a href="https://www.levi.in" target="_blank" class="brand-circle"><img src="IMG_4875.png" alt="Levi's"></a>
         <a href="https://www.gap.com" target="_blank" class="brand-circle"><img src="IMG_4877.jpeg" alt="Gap"></a>
-        <a href="https://www.ralphlauren.com" target="_blank" class="brand-circle"><img src="IMG_4879.jpeg"  alt="Ralph Lauren"></a>
+        <a href="https://www.ralphlauren.com" target="_blank" class="brand-circle"><img src="IMG_4879.jpeg" alt="Ralph Lauren"></a>
     </div>
 </div>
 
 <div class="promo-section">
     <div class="promo-slider">
         <div class="promo-banner glass-panel">
-            <img src="IMG_4806.jpeg" alt="Sale Image">
+            <img src="promo-image.jpg" alt="Sale Image">
         </div>
         <div class="promo-banner glass-panel">
-            <video src="14520076_1920_1080_24fps.mp4" autoplay loop muted playsinline></video>
+            <video src="promo-video.mp4" autoplay loop muted playsinline></video>
         </div>
         <div class="promo-banner glass-panel">
-            <img src="IMG_4893.jpeg" alt="Sale GIF">
+            <img src="promo-animation.gif" alt="Sale GIF">
         </div>
     </div>
 </div>
+
 <section class="category-section">
     <div class="section-header">
         <h2>SHOP BY CATEGORY</h2>
@@ -66,28 +67,122 @@
     </div>
     
     <div class="horizontal-slider">
-        <div class="glass-card glass-panel" onclick="window.location.href='shirts.html'">
-            <div class="card-img-wrapper"><img src="IMG_4833.jpeg" alt="Shirts"></div>
-            <div class="card-info"><h3 class="product-title">Premium Shirts</h3><p>10 Exclusive Pieces</p><button class="btn-primary">EXPLORE</button></div>
+        
+        <div class="glass-card glass-panel">
+            <div class="card-img-wrapper">
+                <img src="IMG_4833.jpeg" alt="Shirts" class="main-img">
+            </div>
+            <div class="card-info">
+                <h3 class="product-title">Premium Shirt</h3>
+                <p class="product-price" style="font-weight: 800; margin-bottom: 10px;">₹1,499</p>
+                <div class="options-container">
+                    <div class="colors-group">
+                        <div class="color-dot active" style="background: #e6e6e6;" data-color-name="Check" data-img="IMG_4833.jpeg"></div>
+                        <div class="color-dot" style="background: #2b2b2b;" data-color-name="Black" data-img="black-shirt.jpg"></div>
+                        <div class="color-dot" style="background: #4a5c6a;" data-color-name="Navy" data-img="navy-shirt.jpg"></div>
+                    </div>
+                    <div class="sizes-group">
+                        <button class="size-btn">S</button>
+                        <button class="size-btn active">M</button>
+                        <button class="size-btn">L</button>
+                        <button class="size-btn">XL</button>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+            </div>
         </div>
-        <div class="glass-card glass-panel" onclick="window.location.href='tshirts.html'">
-            <div class="card-img-wrapper"><img src="IMG_4846.png" alt="T-Shirts"></div>
-            <div class="card-info"><h3 class="product-title">Urban T-Shirts</h3><p>10 Exclusive Pieces</p><button class="btn-primary">EXPLORE</button></div>
+
+        <div class="glass-card glass-panel">
+            <div class="card-img-wrapper">
+                <img src="IMG_4846.png" alt="T-Shirts" class="main-img">
+            </div>
+            <div class="card-info">
+                <h3 class="product-title">Urban T-Shirt</h3>
+                <p class="product-price" style="font-weight: 800; margin-bottom: 10px;">₹999</p>
+                <div class="options-container">
+                    <div class="colors-group">
+                        <div class="color-dot active" style="background: #111;" data-color-name="Black" data-img="IMG_4846.png"></div>
+                        <div class="color-dot" style="background: #f5f5f5;" data-color-name="White" data-img="white-tshirt.jpg"></div>
+                        <div class="color-dot" style="background: #8B0000;" data-color-name="Maroon" data-img="maroon-tshirt.jpg"></div>
+                    </div>
+                    <div class="sizes-group">
+                        <button class="size-btn">S</button>
+                        <button class="size-btn active">M</button>
+                        <button class="size-btn">L</button>
+                        <button class="size-btn">XL</button>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+            </div>
         </div>
-        <div class="glass-card glass-panel" onclick="window.location.href='jeans.html'">
-            <div class="card-img-wrapper"><img src="IMG_4895.jpeg" alt="Jeans"></div>
-            <div class="card-info"><h3 class="product-title">Denim Jeans</h3><p>10 Exclusive Pieces</p><button class="btn-primary">EXPLORE</button></div>
+
+        <div class="glass-card glass-panel">
+            <div class="card-img-wrapper">
+                <img src="category-jeans.jpg" alt="Jeans" class="main-img">
+            </div>
+            <div class="card-info">
+                <h3 class="product-title">Denim Jeans</h3>
+                <p class="product-price" style="font-weight: 800; margin-bottom: 10px;">₹2,499</p>
+                <div class="options-container">
+                    <div class="colors-group">
+                        <div class="color-dot active" style="background: #2a3d5e;" data-color-name="Blue" data-img="category-jeans.jpg"></div>
+                        <div class="color-dot" style="background: #1a1a1a;" data-color-name="Black" data-img="black-jeans.jpg"></div>
+                    </div>
+                    <div class="sizes-group">
+                        <button class="size-btn">30</button>
+                        <button class="size-btn active">32</button>
+                        <button class="size-btn">34</button>
+                        <button class="size-btn">36</button>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+            </div>
         </div>
-        <div class="glass-card glass-panel" onclick="window.location.href='watches.html'">
-            <div class="card-img-wrapper"><img src="IMG_4848.png" alt="Jackets"></div>
-            <div class="card-info"><h3 class="product-title">Jackets</h3><p>10 Exclusive Pieces</p><button class="btn-primary">EXPLORE</button></div>
+
+        <div class="glass-card glass-panel">
+            <div class="card-img-wrapper">
+                <img src="category-watches.jpg" alt="Watches" class="main-img">
+            </div>
+            <div class="card-info">
+                <h3 class="product-title">Elite Watch</h3>
+                <p class="product-price" style="font-weight: 800; margin-bottom: 10px;">₹4,999</p>
+                <div class="options-container">
+                    <div class="colors-group">
+                        <div class="color-dot active" style="background: #silver;" data-color-name="Silver" data-img="category-watches.jpg"></div>
+                        <div class="color-dot" style="background: #d4af37;" data-color-name="Gold" data-img="gold-watch.jpg"></div>
+                        <div class="color-dot" style="background: #111;" data-color-name="Black" data-img="black-watch.jpg"></div>
+                    </div>
+                    <div class="sizes-group">
+                        <button class="size-btn active" style="width:100%;">ONE SIZE</button>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+            </div>
         </div>
-        <div class="glass-card glass-panel" onclick="window.location.href='hats.html'">
-            <div class="card-img-wrapper"><img src="IMG_4847.png" alt="Hats"></div>
-            <div class="card-info"><h3 class="product-title">Hats & Caps</h3><p>10 Exclusive Pieces</p><button class="btn-primary">EXPLORE</button></div>
+
+        <div class="glass-card glass-panel">
+            <div class="card-img-wrapper">
+                <img src="category-hats.jpg" alt="Hats" class="main-img">
+            </div>
+            <div class="card-info">
+                <h3 class="product-title">Classic Cap</h3>
+                <p class="product-price" style="font-weight: 800; margin-bottom: 10px;">₹799</p>
+                <div class="options-container">
+                    <div class="colors-group">
+                        <div class="color-dot active" style="background: #111;" data-color-name="Black" data-img="category-hats.jpg"></div>
+                        <div class="color-dot" style="background: #d2b48c;" data-color-name="Beige" data-img="beige-hat.jpg"></div>
+                    </div>
+                    <div class="sizes-group">
+                        <button class="size-btn active" style="width:100%;">ADJUSTABLE</button>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+            </div>
         </div>
+
     </div>
 </section>
+
 <section class="about-section">
     <h2 class="section-subtitle" style="font-size: 20px; text-align: center;">OUR STORY</h2>
     <div class="about-grid">
@@ -182,4 +277,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
