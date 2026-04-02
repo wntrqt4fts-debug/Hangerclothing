@@ -136,3 +136,8 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .skip-btn { position: absolute; top: -40px; right: 0; background: rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05); color: #000; font-weight: 800; font-size: 11px; padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: 0.3s; }
 .skip-btn:hover { background: #000; color: #fff; }
 
+/* --- QUANTITY SELECTOR --- */
+.qty-group { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 15px; background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05); border-radius: 8px; padding: 5px; width: fit-content; margin-left: auto; margin-right: auto; }
+.qty-btn { background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 5px; width: 25px; height: 25px; font-weight: 800; cursor: pointer; transition: 0.3s; }
+.qty-btn:hover { background: #000; color: #fff; border-color: #000; }
+.qty-display { font-weight: 800; font-size: 13px; width: 20px; text-align: center; }
