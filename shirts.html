@@ -5,6 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Shirts | The Hangers</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- SPECIAL CSS FOR COMPACT 2-COLUMN GRID --- */
+        .grid-2-columns {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Forces exactly 2 columns */
+            gap: 12px; /* Small gap for mobile */
+            padding: 20px 5% 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* If opened on a PC, it will smartly change to 4 columns! */
+        @media (min-width: 768px) {
+            .grid-2-columns {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+            }
+        }
+
+        /* Make everything inside the card compact to fit the small grid beautifully */
+        .grid-2-columns .glass-card { flex: none; border-radius: 10px; }
+        .grid-2-columns .card-info { padding: 10px; }
+        .grid-2-columns .product-title { font-size: 12px; margin-bottom: 2px; letter-spacing: 0px; }
+        .grid-2-columns .product-price { font-size: 12px; margin-bottom: 8px; }
+        
+        /* Shrink Color Dots */
+        .grid-2-columns .colors-group { gap: 6px; margin-bottom: 8px; }
+        .grid-2-columns .color-dot { width: 18px; height: 18px; border-width: 1px; }
+        
+        /* Shrink Size Buttons */
+        .grid-2-columns .sizes-group { gap: 4px; margin-bottom: 8px; }
+        .grid-2-columns .size-btn { padding: 4px 8px; font-size: 10px; border-radius: 4px; }
+        
+        /* Shrink Quantity Buttons */
+        .grid-2-columns .qty-group { gap: 8px; padding: 2px 5px; margin-bottom: 10px; border-radius: 6px;}
+        .grid-2-columns .qty-btn { width: 22px; height: 22px; font-size: 12px; border-radius: 4px;}
+        .grid-2-columns .qty-display { font-size: 11px; width: 15px; }
+        
+        /* Shrink Add to Bag Button */
+        .grid-2-columns .btn-primary { padding: 10px; font-size: 10px; border-radius: 6px; }
+    </style>
 </head>
 <body>
 
@@ -18,11 +59,11 @@
 </nav>
 
 <header class="page-header" style="padding-top: 100px; padding-bottom: 20px;">
-    <h1 style="font-size: 2.5rem;">PREMIUM SHIRTS</h1>
-    <p>CRAFTED FOR THE MODERN GENTLEMAN</p>
+    <h1 style="font-size: 2rem;">SHIRTS</h1>
+    <p style="font-size: 11px;">CRAFTED FOR THE MODERN GENTLEMAN</p>
 </header>
 
-<main class="grid-10-category">
+<main class="grid-2-columns">
     
     <div class="glass-card glass-panel">
         <div class="card-img-wrapper">
@@ -30,7 +71,7 @@
         </div>
         <div class="card-info">
             <h3 class="product-title">Classic Oxford</h3>
-            <p class="product-price" style="font-weight: 800; color: #000; margin-bottom: 10px;">₹1,499</p>
+            <p class="product-price" style="font-weight: 800; color: #000;">₹1,499</p>
 
             <div class="options-container">
                 <div class="colors-group">
@@ -41,7 +82,6 @@
                     <button class="size-btn">S</button>
                     <button class="size-btn active">M</button>
                     <button class="size-btn">L</button>
-                    <button class="size-btn">XL</button>
                 </div>
                 <div class="qty-group">
                     <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
@@ -59,7 +99,7 @@
         </div>
         <div class="card-info">
             <h3 class="product-title">Linen Summer Fit</h3>
-            <p class="product-price" style="font-weight: 800; color: #000; margin-bottom: 10px;">₹1,799</p>
+            <p class="product-price" style="font-weight: 800; color: #000;">₹1,799</p>
 
             <div class="options-container">
                 <div class="colors-group">
@@ -87,7 +127,7 @@
         </div>
         <div class="card-info">
             <h3 class="product-title">Flannel Check</h3>
-            <p class="product-price" style="font-weight: 800; color: #000; margin-bottom: 10px;">₹1,299</p>
+            <p class="product-price" style="font-weight: 800; color: #000;">₹1,299</p>
 
             <div class="options-container">
                 <div class="colors-group">
@@ -114,166 +154,12 @@
         </div>
         <div class="card-info">
             <h3 class="product-title">Mandarin Collar</h3>
-            <p class="product-price" style="font-weight: 800; color: #000; margin-bottom: 10px;">₹1,599</p>
+            <p class="product-price" style="font-weight: 800; color: #000;">₹1,599</p>
 
             <div class="options-container">
                 <div class="colors-group">
                     <div class="color-dot active" style="background: #000000;" data-color-name="Jet Black" data-img="https://images.unsplash.com/photo-1578587018452-892bace94f12?w=500"></div>
                     <div class="color-dot" style="background: #FFFFFF;" data-color-name="Pure White" data-img="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=500"></div>
-                </div>
-                <div class="sizes-group">
-                    <button class="size-btn active">S</button>
-                    <button class="size-btn">M</button>
-                    <button class="size-btn">L</button>
-                </div>
-                <div class="qty-group">
-                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                    <span class="qty-display">1</span>
-                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                </div>
-            </div>
-            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
-        </div>
-    </div>
-
-    <div class="glass-card glass-panel">
-        <div class="card-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1586363104862-3a5e222ee2ea?w=500" alt="Shirt" class="main-img">
-        </div>
-        <div class="card-info">
-            <h3 class="product-title">Urban Denim Shirt</h3>
-            <p class="product-price" style="font-weight: 800; color: #000; margin-bottom: 10px;">₹2,199</p>
-
-            <div class="options-container">
-                <div class="colors-group">
-                    <div class="color-dot active" style="background: #4682B4;" data-color-name="Blue Wash" data-img="https://images.unsplash.com/photo-1586363104862-3a5e222ee2ea?w=500"></div>
-                </div>
-                <div class="sizes-group">
-                    <button class="size-btn">M</button>
-                    <button class="size-btn active">L</button>
-                    <button class="size-btn">XL</button>
-                </div>
-                <div class="qty-group">
-                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                    <span class="qty-display">1</span>
-                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                </div>
-            </div>
-            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
-        </div>
-    </div>
-
-    <div class="glass-card glass-panel">
-        <div class="card-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1626497761153-d14c274b52eb?w=500" alt="Shirt" class="main-img">
-        </div>
-        <div class="card-info">
-            <h3 class="product-title">Striped Resort</h3>
-            <p class="product-price" style="font-weight: 800; color: #000; margin-bottom: 10px;">₹1,399</p>
-            <div class="options-container">
-                <div class="colors-group">
-                    <div class="color-dot active" style="background: #556B2F;" data-color-name="Olive Stripe" data-img="https://images.unsplash.com/photo-1626497761153-d14c274b52eb?w=500"></div>
-                </div>
-                <div class="sizes-group">
-                    <button class="size-btn active">M</button>
-                    <button class="size-btn">L</button>
-                </div>
-                <div class="qty-group">
-                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                    <span class="qty-display">1</span>
-                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                </div>
-            </div>
-            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
-        </div>
-    </div>
-
-    <div class="glass-card glass-panel">
-        <div class="card-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1594938291221-94f18cbb5660?w=500" alt="Shirt" class="main-img">
-        </div>
-        <div class="card-info">
-            <h3 class="product-title">Slim Fit Cotton</h3>
-            <p class="product-price" style="font-weight: 800; color: #000; margin-bottom: 10px;">₹1,199</p>
-            <div class="options-container">
-                <div class="colors-group">
-                    <div class="color-dot active" style="background: #E6E6FA;" data-color-name="Lavender" data-img="https://images.unsplash.com/photo-1594938291221-94f18cbb5660?w=500"></div>
-                </div>
-                <div class="sizes-group">
-                    <button class="size-btn">S</button>
-                    <button class="size-btn active">M</button>
-                    <button class="size-btn">L</button>
-                </div>
-                <div class="qty-group">
-                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                    <span class="qty-display">1</span>
-                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                </div>
-            </div>
-            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
-        </div>
-    </div>
-
-    <div class="glass-card glass-panel">
-        <div class="card-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500" alt="Shirt" class="main-img">
-        </div>
-        <div class="card-info">
-            <h3 class="product-title">Silk Evening Shirt</h3>
-            <p class="product-price" style="font-weight: 800; color: #000; margin-bottom: 10px;">₹2,499</p>
-            <div class="options-container">
-                <div class="colors-group">
-                    <div class="color-dot active" style="background: #1A1A1A;" data-color-name="Charcoal" data-img="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500"></div>
-                </div>
-                <div class="sizes-group">
-                    <button class="size-btn">L</button>
-                    <button class="size-btn active">XL</button>
-                </div>
-                <div class="qty-group">
-                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                    <span class="qty-display">1</span>
-                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                </div>
-            </div>
-            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
-        </div>
-    </div>
-
-    <div class="glass-card glass-panel">
-        <div class="card-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1593726852899-73d83769911e?w=500" alt="Shirt" class="main-img">
-        </div>
-        <div class="card-info">
-            <h3 class="product-title">Corduroy Overshirt</h3>
-            <p class="product-price" style="font-weight: 800; color: #000; margin-bottom: 10px;">₹1,999</p>
-            <div class="options-container">
-                <div class="colors-group">
-                    <div class="color-dot active" style="background: #8B4513;" data-color-name="Brown" data-img="https://images.unsplash.com/photo-1593726852899-73d83769911e?w=500"></div>
-                </div>
-                <div class="sizes-group">
-                    <button class="size-btn">M</button>
-                    <button class="size-btn active">L</button>
-                </div>
-                <div class="qty-group">
-                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                    <span class="qty-display">1</span>
-                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                </div>
-            </div>
-            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
-        </div>
-    </div>
-
-    <div class="glass-card glass-panel">
-        <div class="card-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1620806450893-01861730d1bb?w=500" alt="Shirt" class="main-img">
-        </div>
-        <div class="card-info">
-            <h3 class="product-title">Cuban Collar</h3>
-            <p class="product-price" style="font-weight: 800; color: #000; margin-bottom: 10px;">₹1,499</p>
-            <div class="options-container">
-                <div class="colors-group">
-                    <div class="color-dot active" style="background: #FFD700;" data-color-name="Mustard" data-img="https://images.unsplash.com/photo-1620806450893-01861730d1bb?w=500"></div>
                 </div>
                 <div class="sizes-group">
                     <button class="size-btn active">S</button>
@@ -374,4 +260,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
