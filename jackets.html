@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Jackets | The Hangers</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- SPECIAL CSS FOR COMPACT 2-COLUMN GRID --- */
+        .grid-2-columns {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px; 
+            padding: 20px 5% 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        @media (min-width: 768px) {
+            .grid-2-columns { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        }
+
+        .grid-2-columns .glass-card { flex: none; border-radius: 10px; }
+        .grid-2-columns .card-info { padding: 10px; }
+        .grid-2-columns .product-title { font-size: 12px; margin-bottom: 2px; letter-spacing: 0px; font-weight: 800; text-transform: uppercase; color: #000; }
+        .grid-2-columns .product-price { font-size: 12px; margin-bottom: 8px; font-weight: 800; color: #000;}
+        
+        /* STRICT RULES FOR COLOR CIRCLES */
+        .grid-2-columns .colors-group { display: flex; flex-direction: row; justify-content: center; gap: 8px; margin-bottom: 10px; }
+        .grid-2-columns .color-dot { width: 20px; height: 20px; border-radius: 50% !important; border: 1px solid rgba(0,0,0,0.3); display: inline-block; cursor: pointer; transition: 0.3s; }
+        .grid-2-columns .color-dot.active { border: 2px solid #000; transform: scale(1.2); }
+        
+        /* Shrink Size Buttons */
+        .grid-2-columns .sizes-group { display: flex; flex-direction: row; justify-content: center; gap: 4px; margin-bottom: 10px; }
+        .grid-2-columns .size-btn { padding: 5px 10px; font-size: 11px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1); background: rgba(0,0,0,0.03); cursor: pointer; font-weight: bold;}
+        .grid-2-columns .size-btn.active { background: #000; color: #fff; }
+        
+        /* Shrink Quantity Buttons */
+        .grid-2-columns .qty-group { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 4px 6px; margin-bottom: 12px; border-radius: 6px; background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05); width: fit-content; margin-left: auto; margin-right: auto;}
+        .grid-2-columns .qty-btn { width: 22px; height: 22px; font-size: 14px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1); background: #fff; cursor: pointer; font-weight: bold;}
+        .grid-2-columns .qty-display { font-size: 12px; width: 16px; text-align: center; font-weight: bold;}
+        
+        /* Shrink Add to Bag Button */
+        .grid-2-columns .btn-primary { padding: 10px; font-size: 11px; border-radius: 6px; width: 100%; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1); cursor: pointer; font-weight: bold;}
+        .grid-2-columns .btn-primary:hover { background: #000; color: #fff; }
+    </style>
+</head>
+<body>
+
+<nav class="glass-panel">
+    <button class="nav-btn" onclick="toggleSidebar()">☰</button>
+    <a href="index.html"><img src="welcome.png" alt="The Hangers" class="main-logo"></a>
+    <div style="display: flex; gap: 15px; align-items: center;">
+        <button onclick="openLoginModal()" id="user-login-btn" class="nav-login-btn">LOGIN</button>
+        <button class="cart-toggle" onclick="toggleCart()">BAG (<span class="cart-count-display">0</span>)</button>
+    </div>
+</nav>
+
+<header class="page-header" style="padding-top: 100px; padding-bottom: 20px;">
+    <h1 style="font-size: 2rem;">JACKETS</h1>
+    <p style="font-size: 11px;">OUTERWEAR ESSENTIALS</p>
+</header>
+
+<main class="grid-2-columns">
+    
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500" alt="Jacket" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">Leather Biker</h3>
+            <p class="product-price">₹3,999</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #1a1a1a;" data-img="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500"></div>
+                    <div class="color-dot" style="background: #5C4033;" data-img="https://images.unsplash.com/photo-1520975916090-3105956dac38?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn">M</button><button class="size-btn active">L</button><button class="size-btn">XL</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1495105787522-5334e3ffa0ea?w=500" alt="Jacket" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">Denim Trucker</h3>
+            <p class="product-price">₹2,499</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #4682B4;" data-img="https://images.unsplash.com/photo-1495105787522-5334e3ffa0ea?w=500"></div>
+                    <div class="color-dot" style="background: #111111;" data-img="https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn">S</button><button class="size-btn active">M</button><button class="size-btn">L</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500" alt="Jacket" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">Lightweight Bomber</h3>
+            <p class="product-price">₹1,899</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #556B2F;" data-img="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500"></div>
+                    <div class="color-dot" style="background: #1a1a1a;" data-img="https://images.unsplash.com/photo-1559551409-dadc959f76b8?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn">M</button><button class="size-btn active">L</button><button class="size-btn">XL</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1544441893-675973e31985?w=500" alt="Jacket" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">Quilted Puffer</h3>
+            <p class="product-price">₹2,999</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #A9A9A9;" data-img="https://images.unsplash.com/photo-1544441893-675973e31985?w=500"></div>
+                    <div class="color-dot" style="background: #000080;" data-img="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn">S</button><button class="size-btn active">M</button><button class="size-btn">L</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1520975954732-57dd22299614?w=500" alt="Jacket" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">Classic Trench</h3>
+            <p class="product-price">₹4,499</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #D2B48C;" data-img="https://images.unsplash.com/photo-1520975954732-57dd22299614?w=500"></div>
+                    <div class="color-dot" style="background: #2b2b2b;" data-img="https://images.unsplash.com/photo-1512413913240-2720dbe468ab?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn">M</button><button class="size-btn active">L</button><button class="size-btn">XL</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1559551409-dadc959f76b8?w=500" alt="Jacket" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">Varsity Jacket</h3>
+            <p class="product-price">₹2,299</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #800000;" data-img="https://images.unsplash.com/photo-1559551409-dadc959f76b8?w=500"></div>
+                    <div class="color-dot" style="background: #1a1a1a;" data-img="https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn">S</button><button class="size-btn active">M</button><button class="size-btn">L</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1509539662397-116cb90542f1?w=500" alt="Jacket" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">Suede Trucker</h3>
+            <p class="product-price">₹3,499</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #C19A6B;" data-img="https://images.unsplash.com/photo-1509539662397-116cb90542f1?w=500"></div>
+                    <div class="color-dot" style="background: #5C4033;" data-img="https://images.unsplash.com/photo-1520975916090-3105956dac38?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn active">M</button><button class="size-btn">L</button><button class="size-btn">XL</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+    <div class="glass-card glass-panel">
+        <div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?w=500" alt="Jacket" class="main-img"></div>
+        <div class="card-info">
+            <h3 class="product-title">Windbreaker</h3>
+            <p class="product-price">₹1,599</p>
+            <div class="options-container">
+                <div class="colors-group">
+                    <div class="color-dot active" style="background: #111111;" data-img="https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?w=500"></div>
+                    <div class="color-dot" style="background: #FF4500;" data-img="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500"></div>
+                </div>
+                <div class="sizes-group">
+                    <button class="size-btn">S</button><button class="size-btn active">M</button><button class="size-btn">L</button>
+                </div>
+                <div class="qty-group">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button><span class="qty-display">1</span><button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="addToBag(this)">ADD TO BAG</button>
+        </div>
+    </div>
+
+</main>
+
+<div id="left-sidebar" class="sidebar glass-panel">
+    <div class="sidebar-header"><h2>MENU</h2><button class="close-btn" onclick="toggleSidebar()">×</button></div>
+    <ul class="sidebar-links">
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="shirts.html">SHIRTS</a></li>
+        <li><a href="tshirts.html">T-SHIRTS</a></li>
+        <li><a href="jeans.html">JEANS</a></li>
+        <li><a href="jackets.html">JACKETS</a></li>
+    </ul>
+</div>
+
+<div id="cart-sidebar" class="sidebar glass-panel">
+    <div class="sidebar-header"><h2>YOUR BAG</h2><button class="close-btn" onclick="toggleCart()">×</button></div>
+    <ul id="cart-items"></ul>
+    <div class="cart-footer">
+        <h3 class="cart-total-display">TOTAL: <span>₹<span id="cart-total">0</span></span></h3>
+        <div class="delivery-badge">
+            <img src="Speed Delivery.gif" alt="Fast Delivery">
+            <p>Express Delivery</p>
+        </div>
+        <button class="checkout-btn" onclick="openCheckout()">PROCEED TO PAYMENT<img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" class="pay-logo"><span style="color:#ddd; font-weight:normal;">|</span><img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg" class="pay-logo"></button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+<script>
+document.addEventListener('click', function(e) {
+    // 1. Color Dot Click - Changes Image
+    if(e.target.classList.contains('color-dot')) {
+        const dot = e.target;
+        const card = dot.closest('.glass-card');
+        
+        card.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+        dot.classList.add('active');
+        
+        const newImageSrc = dot.getAttribute('data-img');
+        const mainImg = card.querySelector('.main-img');
+        if(mainImg && newImageSrc) {
+            mainImg.style.opacity = 0; 
+            setTimeout(() => {
+                mainImg.src = newImageSrc; 
+                mainImg.style.opacity = 1; 
+            }, 150);
+        }
+    }
+
+    // 2. Size Button Click
+    if(e.target.classList.contains('size-btn')) {
+        const btn = e.target;
+        const group = btn.closest('.sizes-group');
+        group.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+});
+</script>
+
+</body>
+</html>
